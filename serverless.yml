@@ -1,0 +1,64 @@
+service: bookgether
+
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: go1.x
+  versionFunctions: false
+  stage: dev
+  region: eu-central-1
+
+  iamRoleStatements:
+
+
+package:
+  exclude:
+    - ./**
+  include:
+    - ./bin/**
+
+resources:
+  Resources:
+
+
+functions:
+  user-post:
+    handler: bin/user-post
+    events:
+      - http:
+          path: users
+          method: post
+          cors: true
+
+  user-login:
+    handler: bin/user-login
+    events:
+      - http:
+          path: users/login
+          method: post
+          cors: true
+
+  user-get:
+    handler: bin/user-get
+    events:
+      - http:
+          path: user
+          method: get
+          cors: true
+
+  gethering-post:
+    handler: bin/gethering-post
+    events:
+      - http:
+          path: gethering
+          method: post
+          cors: true
+
+  getherings-get:
+    handler: bin/getherings-get
+    events:
+      - http:
+          path: getherings
+          method: get
+          cors: true
